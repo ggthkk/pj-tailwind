@@ -1,7 +1,14 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import test from "../views/test.vue";
+import Apidata from "../views/Api_data.vue";
+import apicomponant from "../views/Api_componant";
+import apicomputed from "../views/Api_computed";
+import apimethods from "../views/Api_methods";
+import apiwatch from "../views/Api_watch";
+import apiprops from "../views/Api_props";
+
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -9,19 +16,36 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+  }, 
+  {
+    path: "/data",
+    name: "Apidata",
+    component: Apidata,
   },
   {
-    path: "/",
-    name: "test",
-    component: test,
+    path: "/componant",
+    name: "componant",
+    component: apicomponant,
   },
   {
-    path: "/about",
-    name: "About",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ "../views/About.vue"),
+    path: "/computed",
+    name: "computed",
+    component: apicomputed,
+  },
+  {
+    path: "/methods",
+    name: "methods",
+    component: apimethods,
+  },
+  {
+    path: "/watch",
+    name: "watch",
+    component: apiwatch,
+  },
+  {
+    path: "/props",
+    name: "props",
+    component: apiprops,
   },
 ];
 
