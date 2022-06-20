@@ -46,6 +46,10 @@ const routes = [
     path: "/props",
     name: "props",
     component: apiprops,
+    
+    meta: {
+      msg: 'Hello Foo',
+    }
   },
 ];
 
