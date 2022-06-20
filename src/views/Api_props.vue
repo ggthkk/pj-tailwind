@@ -2,9 +2,9 @@
     <div class="grid place-items-center h-auto">
       <div class="w-9/12 m-5 rounded overflow-hidden shadow-lg">
         <div class="px-2 py-4">
-          <div class="font-bold text-2xl mb-4">Api option Data</div>
+          <div class="font-bold text-2xl mb-4">Api option Props</div>
           <p class="text-gray-700 text-base">
-            awdawGGGGGGGGGGGG
+            {{ $route.meta.msg }}
           </p>
         </div>
       </div>
@@ -13,11 +13,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      value: ''
-    }
-  },
 };
 </script>
 
