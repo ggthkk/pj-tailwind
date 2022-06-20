@@ -1,12 +1,17 @@
 <template>
   <div class="relative flex min-h-screen">
-    <div :style="open === false ? 'width: 12rem' : 'width: 0px'"
+    <div style="
+    position: -webkit-sticky;
+    top: 0;
+    box-shadow: 0 3px 10px 0rgba(47,96,210,.1);
+    z-index: 100;
+    height: 100vh;" :style="open === false ? 'width: 12rem' : 'width: 0px'"
       id="main" class="sidenav 
     bg-rose-100 
     absolute 
     inset-y-0 
     left-0 
-    md:relative 
+    md:sticky 
     md:-translate-x-0 
     transform -translate-x-full 
     transition 
@@ -120,8 +125,13 @@
               fill-rule="evenodd"
               d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
               clip-rule="evenodd"
-            /></svg>&nbsp;&nbsp;Props</router-link
-        >
+            /></svg>&nbsp;&nbsp;Props</router-link>
+            <router-link
+          to="/api"
+          class="flex items-center py-4 px-5 hover:bg-rose-200"
+          ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+</svg>&nbsp;&nbsp;Api</router-link>
       </nav>
     </div>
     <div class="flex-1">
@@ -152,7 +162,6 @@
 
 <script>
 export default{
-
   data() {
     const open = false;
     return {

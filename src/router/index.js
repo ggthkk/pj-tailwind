@@ -7,6 +7,7 @@ import apicomputed from "../views/Api_computed";
 import apimethods from "../views/Api_methods";
 import apiwatch from "../views/Api_watch";
 import apiprops from "../views/Api_props";
+import apiaxios from "../views/Api_axios";
 
 
 Vue.use(VueRouter);
@@ -50,6 +51,11 @@ const routes = [
     meta: {
       msg: 'Hello Foo',
     }
+  },
+  {
+    path: "/api",
+    name: "api",
+    component: apiaxios,
   },
 ];
 
