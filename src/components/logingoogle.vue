@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      type="button"
+      type="button" @click="onSignIn()"
       class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex absolute top-3 right-0 mr-2 mb-2"
     >
       <svg
@@ -25,9 +25,29 @@
 </template>
 
 <script>
+import googleOneTap from 'google-one-tap';
+import jwt_decode from "jwt-decode";
 export default {
-
-
+    mounted() {
+        const options = {
+            client_id: '275232413742-pid0tljujbo4dfpro2gk93pufuedgrs1.apps.googleusercontent.com', // required
+            auto_select: false, // optional
+            cancel_on_tap_outside: false, // optional
+            context: 'signin', // optional
+            
+        };
+        googleOneTap(options, (response) => {
+            // Send response to server
+            console.log(response);
+            var userData = jwt_decode(response.credential);
+            console.log("Handle the userData", userData)
+        });
+    },
+    methods: {
+    onSignIn (user) {
+      const profile = user.getBasicProfile()
+    }
+}
 };
 </script>
 

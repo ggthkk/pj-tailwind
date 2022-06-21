@@ -3,7 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import "./assets/styles/tailwindcss.css"
-import VueGoogleApi from 'vue-google-api'
+
 
 import axios from 'axios'
 import VueAxios from 'vue-axios'
