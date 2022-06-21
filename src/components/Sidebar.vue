@@ -1,25 +1,20 @@
 <template>
   <div class="relative flex min-h-screen">
-    <div style="
-    position: -webkit-sticky;
-    top: 0;
-    box-shadow: 0 3px 10px 0rgba(47,96,210,.1);
-    z-index: 100;
-    height: 100vh;" :style="open === false ? 'width: 12rem' : 'width: 0px'"
-      id="main" class="sidenav 
-    bg-rose-100 
-    absolute 
-    inset-y-0 
-    left-0 
-    md:sticky 
-    md:-translate-x-0 
-    transform -translate-x-full 
-    transition 
-    duration-200 
-    ease-in-out"
+    <div
+      style="
+        position: -webkit-sticky;
+        top: 0;
+        box-shadow: 0 3px 10px 0rgba (47, 96, 210, 0.1);
+        z-index: 100;
+        height: 100vh;
+      "
+      :style="open === false ? 'width: 12rem' : 'width: 0px'"
+      id="main"
+      class="sidenav bg-rose-100 absolute inset-y-0 left-0 md:sticky md:-translate-x-0 transform -translate-x-full transition duration-200 ease-in-out"
     >
       <router-link
-        to="/" v-show="!open"
+        to="/"
+        v-show="!open"
         class="flex items-center py-5 hover:text-gray-500 px-8"
       >
         <svg
@@ -54,7 +49,8 @@
             />
             <path
               d="M17 5c0 1.657-3.134 3-7 3S3 6.657 3 5s3.134-3 7-3 7 1.343 7 3z"
-            /></svg>&nbsp;&nbsp;Data</router-link>
+            /></svg>&nbsp;&nbsp;Data</router-link
+        >
         <router-link
           to="/componant"
           class="flex items-center py-4 px-5 hover:bg-rose-200"
@@ -66,7 +62,8 @@
           >
             <path
               d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"
-            /></svg>&nbsp;&nbsp;Componat</router-link>
+            /></svg>&nbsp;&nbsp;Componat</router-link
+>
         <router-link
           to="/computed"
           class="flex items-center py-4 px-5 hover:bg-rose-200"
@@ -125,34 +122,45 @@
               fill-rule="evenodd"
               d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
               clip-rule="evenodd"
-            /></svg>&nbsp;&nbsp;Props</router-link>
-            <router-link
+            /></svg>&nbsp;&nbsp;Props</router-link
+        >
+        <router-link
           to="/api"
           class="flex items-center py-4 px-5 hover:bg-rose-200"
-          ><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-</svg>&nbsp;&nbsp;Api</router-link>
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"
+            /></svg>&nbsp;&nbsp;Api</router-link
+        >
       </nav>
     </div>
+
+    <!-- ส่วน Haed -->
     <div class="flex-1">
       <div class="bg-white shadow py-4 px-3">
-      <button @click="sidebarFunc()" class="text-black font-extrabold">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-7 w-7"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fill-rule="evenodd"
-            d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-            clip-rule="evenodd"
-          />
-        </svg>
-      </button>
-    </div>
-
-    <!-- ส่วน content -->
+        <button @click="sidebarFunc()" class="text-black font-extrabold">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-7 w-7"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <logingoogle></logingoogle>
+      </div>
+      <!-- ส่วน Haed -->
+      <!-- ส่วน content -->
       <div><router-view></router-view></div>
 
       <!-- ส่วน content -->
@@ -161,7 +169,11 @@
 </template>
 
 <script>
-export default{
+import logingoogle from '../components/logingoogle.vue'
+export default {
+  components: {
+    logingoogle,
+  },
   data() {
     const open = false;
     return {
@@ -177,9 +189,7 @@ export default{
     },
   },
 };
-
 </script>
-
 
 <style scoped>
 #main {
@@ -193,4 +203,5 @@ export default{
   .sidenav a {
     font-size: 18px;
   }
-}</style>
+}
+</style>
