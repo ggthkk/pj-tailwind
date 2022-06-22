@@ -8,13 +8,13 @@
         z-index: 100;
         height: 100vh;
       "
-      :style="open === false ? 'width: 12rem' : 'width: 0px'"
+      :style="open === true ? 'width: 12rem' : 'width: 0px'"
       id="main"
       class="sidenav bg-rose-100 absolute inset-y-0 left-0 md:sticky md:-translate-x-0 transform -translate-x-full transition duration-200 ease-in-out"
     >
       <router-link
         to="/"
-        v-show="!open"
+        v-show="open"
         class="flex items-center py-5 hover:text-gray-500 px-8"
       >
         <svg
@@ -31,7 +31,7 @@
             d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
           /></svg><span class="text-2xl font-bold ml-3 hover:text-gray-500">GotJi</span>
       </router-link>
-      <nav v-show="!open">
+      <nav v-show="open" v-if="gglogin == true">
         <router-link
           to="/data"
           class="flex items-center py-4 px-5 mt-6 hover:bg-rose-200"
@@ -157,7 +157,7 @@
             />
           </svg>
         </button>
-        <logingoogle></logingoogle>
+        <logingoogle @logingoogle="valuegoogle()"></logingoogle>
       </div>
       <!-- ส่วน Haed -->
       <!-- ส่วน content -->
@@ -178,6 +178,7 @@ export default {
     const open = false;
     return {
       open,
+      gglogin:false
     };
   },
   methods: {
@@ -186,6 +187,10 @@ export default {
     },
     closeNav() {
       this.open = false;
+    },
+    valuegoogle() {
+      this.gglogin = true
+      this.open = true
     },
   },
 };
