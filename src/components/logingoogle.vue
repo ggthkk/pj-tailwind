@@ -1,11 +1,13 @@
 <template>
   <div>
-    <button
+    <!-- ปุ่ม sign out -->
+    <button v-if="this.name != ''"
       type="button"
       @click="toggleModal()"
-      class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex absolute top-3 right-0 mr-2 mb-2"
+      class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex absolute top-3 right-0 mr-2 mb-2"
     >
-      <svg v-if="pictureshow === ''"
+      <svg
+        v-if="pictureshow === ''"
         class="w-4 h-5 mr-2 -ml-1"
         aria-hidden="true"
         focusable="false"
@@ -21,12 +23,28 @@
         ></path>
       </svg>
 
-      <img v-else class="w-6 h-6 rounded-full mr-2 -ml-2" :src="pictureshow" alt="Default avatar">
-      
+      <img
+        v-else
+        class="w-6 h-6 rounded-full mr-2 -ml-2"
+        :src="pictureshow"
+        alt="Default avatar"
+      />
+
       <p v-if="this.name == ''">Sign in with Google</p>
       <p v-if="this.name != ''">{{ name }}</p>
     </button>
+    <!-- ปุ่ม sign out -->
 
+    <!-- ปุ่ม sign in -->
+    <button v-if="this.name === ''"
+      type="button"
+      id="signin_button"
+      class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-2 mr-8 text-center inline-flex absolute top-3 right-0 "
+    >
+    </button>
+    <!-- ปุ่ม sign in -->
+
+    <!-- modal confriem -->
     <div>
       <div
         v-if="showModal"
@@ -48,8 +66,7 @@
               >
                 <span
                   class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none"
-                >
-                  ×
+                  >×
                 </span>
               </button>
             </div>
@@ -84,10 +101,10 @@
         class="opacity-25 fixed inset-0 z-40 bg-black"
       ></div>
     </div>
+    <!-- modal confriem -->
   </div>
 </template>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 import googleOneTap from 'google-one-tap';
 import jwt_decode from 'jwt-decode';
@@ -112,26 +129,55 @@ export default {
         this.name = userData.name;
         this.pictureshow = userData.picture;
 
-        
         this.$emit('logingoogle', '1');
       });
     },
+
+    //getdataAipGooogle
+    handleCredentialResponse(response) {
+      console.log(response);
+      var userData = jwt_decode(response.credential);
+        console.log('Handle the userData', userData);
+        console.log('username : ', userData.name);
+        this.name = userData.name;
+        this.pictureshow = userData.picture;
+
+        this.$emit('logingoogle', '1');
+
+    },
+
     toggleModal() {
       this.showModal = !this.showModal;
     },
-    reload(){
-    this.$router.go()
-  }
+    reload() {
+      this.$router.go();
+    },
   },
+
   data() {
     return {
       name: '',
       showModal: false,
-      pictureshow:''
+      pictureshow: '',
     };
   },
-  mounted() {
-    this.logingoogle();
+
+  mounted: function () {
+    let googleScript = document.createElement('script');
+    googleScript.src = 'https://accounts.google.com/gsi/client';
+    document.head.appendChild(googleScript);
+
+    window.addEventListener('load', () => {
+      console.log(window.google);
+      window.google.accounts.id.initialize({
+        client_id: '275232413742-pid0tljujbo4dfpro2gk93pufuedgrs1.apps.googleusercontent.com',
+        callback: this.handleCredentialResponse,
+      });
+      window.google.accounts.id.renderButton(
+        document.getElementById('signin_button'),
+        { theme: 'outline', size: 'medium' , text:'continue_with',shape:'pill'} // customization attributes
+      );
+    });
   },
 };
 </script>
