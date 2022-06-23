@@ -1,47 +1,52 @@
 <template>
   <div>
     <!-- ปุ่ม sign out -->
-    <button v-if="this.name != ''"
-      type="button"
-      @click="toggleModal()"
-      class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex absolute top-3 right-0 mr-2 mb-2"
+    <div
+      v-if="this.condata != ''"
+      class="px-5 py-2.5 text-center inline-flex absolute top-0 right-0 mr-2 mb-2"
     >
-      <svg
-        v-if="pictureshow === ''"
-        class="w-4 h-5 mr-2 -ml-1"
-        aria-hidden="true"
-        focusable="false"
-        data-prefix="fab"
-        data-icon="google"
-        role="img"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 488 512"
+      <p class="pr-2 py-2">Welcome {{ this.condata.given_name }} !</p>
+      <button
+        class="rounded-full overflow-hidden border-2 border-purple-500 w-10 h-10 right-0 | hover:border-white focus:outline-none focus:border-white"
+        @click="isOpen1 = true"
       >
-        <path
-          fill="currentColor"
-          d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
-        ></path>
-      </svg>
+        <img :src="this.condata.picture" alt="User's avatar" />
+      </button>
 
-      <img
-        v-else
-        class="w-6 h-6 rounded-full mr-2 -ml-2"
-        :src="pictureshow"
-        alt="Default avatar"
-      />
-
-      <p v-if="this.name == ''">Sign in with Google</p>
-      <p v-if="this.name != ''">{{ name }}</p>
-    </button>
+      <div
+        v-if="isOpen1"
+        class="fixed inset-0 w-full h-screen z-20 bg-black opacity-25"
+        @click="isOpen1 = false"
+      ></div>
+      <div
+        v-if="isOpen1"
+        class="absolute z-30 right-6 mt-11"
+        :class="{ hidden: !isOpen1 }"
+      >
+        <div class="bg-white rounded-lg shadow-lg py-2 w-48">
+          <a
+            href=""
+            class="block text-purple-600 font-semibold px-4 py-2 | hover:text-white hover:bg-purple-500"
+            >Your profile</a
+          >
+          <a
+            @click="toggleModal()"
+            class="block text-purple-600 font-semibold px-4 py-2 | hover:text-white hover:bg-purple-500"
+            >Sign out</a
+          >
+        </div>
+      </div>
+    </div>
     <!-- ปุ่ม sign out -->
 
     <!-- ปุ่ม sign in -->
-    <button v-if="this.name === ''"
-      type="button"
-      id="signin_button"
-      class="bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg px-5 py-2 mr-8 text-center inline-flex absolute top-3 right-0 "
-    >
-    </button>
+    <div v-else>
+      <button
+        type="button"
+        id="signin_button"
+        class="bg-whit focus:ring-4 focus:outline-none font-medium rounded-lg px-2 py-2 mr-3 text-center inline-flex absolute top-2 right-0"
+      ></button>
+    </div>
     <!-- ปุ่ม sign in -->
 
     <!-- modal confriem -->
@@ -88,7 +93,7 @@
               <button
                 class="text-red-500 background-transparent font-bold uppercase px-7 py-2 mr-3 text-sm outline-none focus:outline-none ease-linear transition-all duration-150"
                 type="button"
-                @click="reload()"
+                @click="signout()"
               >
                 Sign out
               </button>
@@ -108,6 +113,7 @@
 <script>
 import googleOneTap from 'google-one-tap';
 import jwt_decode from 'jwt-decode';
+import Cookies from 'js-cookie';
 
 export default {
   methods: {
@@ -125,11 +131,20 @@ export default {
         console.log(response);
         var userData = jwt_decode(response.credential);
         console.log('Handle the userData', userData);
-        console.log('username : ', userData.name);
-        this.name = userData.name;
+        console.log('username : ', userData.given_name);
+        this.name = userData.given_name;
         this.pictureshow = userData.picture;
 
+        Cookies.set('data', JSON.stringify(userData), { expires: 1 });
+
+        //รับ cookie และแปลง หลัง login
+        this.getdata = Cookies.get('data');
+        this.condata = JSON.parse(this.getdata);
+
+        //รับ cookie และแปลง หลัง login
+
         this.$emit('logingoogle', '1');
+
       });
     },
 
@@ -137,28 +152,48 @@ export default {
     handleCredentialResponse(response) {
       console.log(response);
       var userData = jwt_decode(response.credential);
-        console.log('Handle the userData', userData);
-        console.log('username : ', userData.name);
-        this.name = userData.name;
-        this.pictureshow = userData.picture;
+      console.log('Handle the userData', userData);
+      console.log('username : ', userData.given_name);
+      this.name = userData.given_name;
+      this.pictureshow = userData.picture;
 
-        this.$emit('logingoogle', '1');
+      Cookies.set('data', JSON.stringify(userData), { expires: 1 });
 
+      //รับ cookie และแปลง หลัง login
+      this.getdata = Cookies.get('data');
+      this.condata = JSON.parse(this.getdata);
+      //รับ cookie และแปลง หลัง login
+
+      this.$emit('logingoogle', '1');
     },
 
     toggleModal() {
       this.showModal = !this.showModal;
     },
-    reload() {
+    signout:function (){
+      Cookies.remove('data');
       this.$router.go();
+    },
+    getCookie() {
+      const getdataFrist = Cookies.get('data');
+      const condataFrist = JSON.parse(getdataFrist);
+
+      console.log("frist",condataFrist);
+      console.log("frist",condataFrist.name);
+
+      this.condata = condataFrist
     },
   },
 
   data() {
     return {
       name: '',
-      showModal: false,
       pictureshow: '',
+      showModal: false,
+      isOpen1: false,
+      isOpen2: false,
+      getdata: '',
+      condata:''
     };
   },
 
@@ -170,14 +205,23 @@ export default {
     window.addEventListener('load', () => {
       console.log(window.google);
       window.google.accounts.id.initialize({
-        client_id: '275232413742-pid0tljujbo4dfpro2gk93pufuedgrs1.apps.googleusercontent.com',
+        client_id:
+          '275232413742-pid0tljujbo4dfpro2gk93pufuedgrs1.apps.googleusercontent.com',
         callback: this.handleCredentialResponse,
       });
       window.google.accounts.id.renderButton(
         document.getElementById('signin_button'),
-        { theme: 'outline', size: 'medium' , text:'continue_with',shape:'pill'} // customization attributes
+        { theme: 'filled_blue', size: 'medium', text: 'continue_with' } // customization attributes
       );
     });
+  },
+  created() {
+    if (Cookies.get('data') === undefined) {
+        this.logingoogle();
+    } else {
+      this.getCookie();
+      this.$emit('logingoogle', '1');
+    }
   },
 };
 </script>
