@@ -25,15 +25,9 @@
       >
         <div class="bg-white rounded-lg shadow-lg py-2 w-48">
           <a
-            href=""
-            class="block text-purple-600 font-semibold px-4 py-2 | hover:text-white hover:bg-purple-500"
-            >Your profile</a
-          >
-          <a
             @click="toggleModal()"
             class="block text-purple-600 font-semibold px-4 py-2 | hover:text-white hover:bg-purple-500"
-            >Sign out</a
-          >
+            >Sign out</a>
         </div>
       </div>
     </div>

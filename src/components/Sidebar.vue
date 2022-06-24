@@ -157,12 +157,13 @@
             />
           </svg>
         </button>
+        <!-- ส่วน Haed -->
         <logingoogle @logingoogle="valuegoogle()"></logingoogle>
+        <!-- ส่วน Haed -->
       </div>
-      <!-- ส่วน Haed -->
+      
       <!-- ส่วน content -->
       <div><router-view></router-view></div>
-
       <!-- ส่วน content -->
     </div>
   </div>
